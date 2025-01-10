@@ -1,0 +1,89 @@
+<!-- templates/base.html -->
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}大本钟战术本{% endblock %}</title>
+    <!-- 引入Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnH1zUqjrmI15C3+sZ+1QrXNRvvuk7cg2jVEbF+cGdHsbAnDc0VqcIO6oS1Yr7X/YUR8I4H1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- 自定义CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('views.index') }}">大本钟战术本</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('views.index') }}">首页</a>
+                    </li>
+                    <!-- 其他导航链接（如果有） -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Flash 消息 -->
+    <div class="container mt-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert-container">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="关闭"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <!-- 主内容 -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- 引入Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- 引入自定义JS -->
+    <script>
+        // 动态更新子类别选项（如果需要，可以扩展为针对不同类型的动态加载）
+        document.addEventListener('DOMContentLoaded', function() {
+            const economicSelect = document.getElementById('economic_category');
+            const mapSelect = document.getElementById('map_category');
+            const lineupSelect = document.getElementById('lineup_category');
+
+            // 如果需要动态加载，可以为每个主类别添加事件监听器
+            // 这里假设已经在视图中加载了所有子类别，故无需动态加载
+
+            // 示例：如果您希望动态加载子类别，可以参考以下代码
+
+            /*
+            if (economicSelect) {
+                economicSelect.addEventListener('change', function() {
+                    const categoryId = this.value;
+                    fetch(`/subcategories/${categoryId}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // 更新经济类别的子类别
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            }
+
+            // 类似地，为地图和阵容类别添加事件监听器
+            */
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!-- templates/edit.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}编辑策略本 - 大本钟战术本{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4 text-center">编辑策略本</h2>
+            <form method="POST" action="{{ url_for('views.edit', tactics_id=tactics.id) }}">
+                {{ form.hidden_tag() }}
+                <div class="mb-3">
+                    <label for="title" class="form-label">标题</label>
+                    {{ form.title(class="form-control", id="title", placeholder="输入策略本标题") }}
+                </div>
+                <div class="mb-3">
+                    <label for="content" class="form-label">内容</label>
+                    {{ form.content(class="form-control", id="content", rows="5", placeholder="输入策略本内容") }}
+                </div>
+                <div class="mb-3">
+                    <label for="modified_by" class="form-label">修改人</label>
+                    {{ form.modified_by(class="form-control", id="modified_by", placeholder="输入修改人姓名") }}
+                </div>
+                <div class="mb-3">
+                    <label for="economic_category" class="form-label">经济类别</label>
+                    {{ form.economic_category(class="form-select", id="economic_category") }}
+                </div>
+                <div class="mb-3">
+                    <label for="map_category" class="form-label">地图类别</label>
+                    {{ form.map_category(class="form-select", id="map_category") }}
+                </div>
+                <div class="mb-3">
+                    <label for="lineup_category" class="form-label">阵容类别</label>
+                    {{ form.lineup_category(class="form-select", id="lineup_category") }}
+                </div>
+                <div class="mb-3 text-center">
+                    <button type="submit" class="btn btn-success me-2">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                    <a href="{{ url_for('views.view_tactic', tactics_id=tactics.id) }}" class="btn btn-secondary">
+                        <i class="fas fa-times-circle"></i> 取消
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

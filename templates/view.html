@@ -1,0 +1,44 @@
+<!-- templates/view.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}查看策略本 - 大本钟战术本{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="mb-4 text-center">查看策略本</h2>
+            {% if tactics %}
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ tactics.title }}</h5>
+                        <p class="card-text">{{ tactics.content }}</p>
+                        <p class="card-text">
+                            经济类别: <span class="badge bg-info text-dark">{{ tactics.economic_category.name }}</span><br>
+                            地图类别: <span class="badge bg-success text-white">{{ tactics.map_category.name }}</span><br>
+                            阵容类别: <span class="badge bg-warning text-dark">{{ tactics.lineup_category.name }}</span><br>
+                            <small class="text-muted">修改人: {{ tactics.modified_by }}</small>
+                        </p>
+                        <div class="d-flex justify-content-center">
+                            <a href="{{ url_for('views.edit', tactics_id=tactics.id) }}" class="btn btn-warning me-2">
+                                <i class="fas fa-edit"></i> 编辑
+                            </a>
+                            <a href="{{ url_for('views.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-home"></i> 返回首页
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="alert alert-info text-center" role="alert">
+                    未找到策略本。
+                </div>
+                <div class="text-center">
+                    <a href="{{ url_for('views.index') }}" class="btn btn-primary">
+                        <i class="fas fa-plus-circle"></i> 创建策略本
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
